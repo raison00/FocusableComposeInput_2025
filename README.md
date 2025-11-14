@@ -1,29 +1,32 @@
 # Adaptive UI Focusable Button Input in Compose 2025
 Testing and documentation for Adaptive UI across devices and form factors
 
-# Input Types Comparison Guide
 
-## Overview
+step-by-step-guide --> (https://github.com/raison00/FocusableComposeInput_2025/blob/main/implementation_guide.md#step-by-step-implementation-guide)
+
+## Input Types Comparison Guide
+
+### Overview
 This guide shows the differences in how focus behaves across different input methods and device types.
 
 ---
 
-## 1. Touch Input (Mobile/Tablet)
+### 1. Touch Input (Mobile/Tablet)
 
-### Behavior
+#### Behavior
 - **Activation:** Immediate on tap
 - **Focus:** Briefly shows on touch, then released
 - **Navigation:** Direct pointing to any button
 - **Visual Feedback:** Ripple effect + brief focus highlight
 
-### User Experience
+#### User Experience
 ```
 User touches button → Focus + Click happen simultaneously
 Button activates immediately → Focus released
 No persistent focus state (unless keyboard connected)
 ```
 
-### Code Pattern
+#### Code Pattern
 ```kotlin
 Button(
     onClick = {
@@ -35,7 +38,7 @@ Button(
 }
 ```
 
-### Visual States
+#### Visual States
 ```
 ┌─────────────────┐
 │   Touch Start   │ ← Ripple begins
@@ -51,15 +54,15 @@ Timeline: ~100-300ms total
 
 ---
 
-## 2. Keyboard Input (Desktop/Laptop)
+### 2. Keyboard Input (Desktop/Laptop)
 
-### Behavior
+#### Behavior
 - **Activation:** Tab to focus, Enter/Space to activate
 - **Focus:** Persistent until moved to another element
 - **Navigation:** Sequential (Tab/Shift+Tab) or directional (arrows)
 - **Visual Feedback:** Border + elevation + color change (persistent)
 
-### User Experience
+#### User Experience
 ```
 User presses Tab → Focus moves to button
 Button shows focus indicator → User sees cyan border
@@ -67,7 +70,7 @@ User presses Enter → Button activates
 Focus remains on button until Tab pressed again
 ```
 
-### Code Pattern
+#### Code Pattern
 ```kotlin
 Button(
     onClick = { onItemSelected(item) },
@@ -82,7 +85,7 @@ Button(
 }
 ```
 
-### Visual States
+#### Visual States
 ```
 ┌─────────────────┐
 │    Default      │ ← No focus
@@ -101,7 +104,7 @@ Button(
 Timeline: Focus persists indefinitely
 ```
 
-### Navigation Pattern
+#### Navigation Pattern
 ```
 Button 1 [Focused] ←─┐
 Button 2             │ Tab
@@ -114,22 +117,22 @@ Shift+Tab reverses direction
 
 ---
 
-## 3. Mouse Input (Desktop/Laptop)
+### 3. Mouse Input (Desktop/Laptop)
 
-### Behavior
+#### Behavior
 - **Activation:** Click immediately activates
 - **Focus:** Gains focus on click, persistent afterward
 - **Navigation:** Direct pointing + optional Tab
 - **Visual Feedback:** Hover effect + focus indicator after click
 
-### User Experience
+#### User Experience
 ```
 User hovers → Optional hover feedback
 User clicks → Focus + activation simultaneously
 Focus persists → Can now use keyboard navigation
 ```
 
-### Code Pattern
+#### Code Pattern
 ```kotlin
 Button(
     onClick = {
@@ -144,7 +147,7 @@ Button(
 }
 ```
 
-### Visual States
+#### Visual States
 ```
 ┌─────────────────┐
 │    Default      │
@@ -168,15 +171,15 @@ Timeline:
 
 ---
 
-## 4. D-Pad/Remote Input (TV/Game Console)
+### 4. D-Pad/Remote Input (TV/Game Console)
 
-### Behavior
+#### Behavior
 - **Activation:** Center/A button after navigation
 - **Focus:** Persistent and highly visible (pulsing)
 - **Navigation:** Directional (up/down/left/right)
 - **Visual Feedback:** Amber border + glow + pulse animation
 
-### User Experience
+#### User Experience
 ```
 User presses Right → Focus moves to next button
 Large amber border appears → Pulsing animation indicates focus
@@ -184,7 +187,7 @@ User presses Center → Button activates
 Focus remains → Can continue navigating
 ```
 
-### Code Pattern
+#### Code Pattern
 ```kotlin
 Button(
     onClick = { onItemSelected(item) },
@@ -206,7 +209,7 @@ Button(
 }
 ```
 
-### Visual States
+#### Visual States
 ```
 ┌─────────────────┐
 │    Default      │
@@ -230,7 +233,7 @@ Timeline:
 - Focus: Persistent until navigation
 ```
 
-### Navigation Pattern (Grid)
+#### Navigation Pattern (Grid)
 ```
 Button 1   Button 2   Button 3 ──→ Right
 Button 4   Button 5   Button 6
@@ -241,7 +244,7 @@ Button 4   Button 5   Button 6
 
 ---
 
-## Side-by-Side Comparison
+### Side-by-Side Comparison
 
 | Feature | Touch | Keyboard | Mouse | D-Pad (TV) |
 |---------|-------|----------|-------|------------|
@@ -260,9 +263,9 @@ Button 4   Button 5   Button 6
 
 ---
 
-## Code: Detecting Input Type
+### Code: Detecting Input Type
 
-### Basic Detection
+#### Basic Detection
 ```kotlin
 @Composable
 fun InputAwareButton(
@@ -313,7 +316,7 @@ enum class InputType {
 }
 ```
 
-### Advanced Detection with Configuration
+#### Advanced Detection with Configuration
 ```kotlin
 @Composable
 fun SmartInputDetection() {
@@ -332,9 +335,9 @@ fun SmartInputDetection() {
 
 ---
 
-## Visual Feedback Timing
+### Visual Feedback Timing
 
-### Touch (Fast)
+#### Touch (Fast)
 ```
 [Touch Start]────[Touch End]
     100ms
@@ -343,7 +346,7 @@ fun SmartInputDetection() {
        300ms
 ```
 
-### Keyboard (Deliberate)
+#### Keyboard (Deliberate)
 ```
 [Tab]────[Button Focused]═══════════[Enter]────[Action]
   0ms         200ms (animation)        0ms
@@ -351,14 +354,14 @@ fun SmartInputDetection() {
      Focus persists indefinitely
 ```
 
-### Mouse (Immediate)
+#### Mouse (Immediate)
 ```
 [Hover]────[Click]═══[Focused+Action]
    0ms       0ms     ↑
                 Focus persists
 ```
 
-### D-Pad (Animated)
+#### D-Pad (Animated)
 ```
 [Navigate]────[Button Focused]∿∿∿∿∿∿∿∿∿[Center]────[Action]
     0ms           1000ms pulse cycle      0ms
@@ -368,9 +371,9 @@ fun SmartInputDetection() {
 
 ---
 
-## Best Practices by Input Type
+### Best Practices by Input Type
 
-### Touch-First Design
+#### Touch-First Design
 ```kotlin
 // Large touch targets
 .heightIn(min = 48.dp)
@@ -384,7 +387,7 @@ fun SmartInputDetection() {
 // No persistent focus required
 ```
 
-### Keyboard-First Design
+#### Keyboard-First Design
 ```kotlin
 // Clear focus indicators
 .border(4.dp, Color.Cyan)
@@ -399,7 +402,7 @@ if (isFocused) { /* Show indicators */ }
 // (Built into Button)
 ```
 
-### Mouse-First Design
+#### Mouse-First Design
 ```kotlin
 // Hover states
 .hoverable()
@@ -413,7 +416,7 @@ Modifier.pointerHoverIcon(PointerIcon.Hand)
 // Support both click and keyboard after
 ```
 
-### D-Pad-First Design
+#### D-Pad-First Design
 ```kotlin
 // High-contrast indicators
 .border(6.dp, Color.Yellow)
@@ -433,9 +436,9 @@ fontSize = 20.sp
 
 ---
 
-## Testing Scenarios
+### Testing Scenarios
 
-### Scenario 1: Touch User Switches to Keyboard
+#### Scenario 1: Touch User Switches to Keyboard
 ```
 1. User taps several buttons (touch)
    → No persistent focus visible
@@ -445,7 +448,7 @@ fontSize = 20.sp
    → Focus persists and navigates correctly
 ```
 
-### Scenario 2: Keyboard User Switches to Mouse
+#### Scenario 2: Keyboard User Switches to Mouse
 ```
 1. User tabs through buttons (keyboard)
    → Focus indicators visible
@@ -455,7 +458,7 @@ fontSize = 20.sp
    → Focus continues from clicked button
 ```
 
-### Scenario 3: TV User with Remote
+#### Scenario 3: TV User with Remote
 ```
 1. User navigates with D-Pad
    → Large, pulsing amber indicators
@@ -467,24 +470,24 @@ fontSize = 20.sp
 
 ---
 
-## Accessibility Notes
+### Accessibility Notes
 
-### For Touch Users
+#### For Touch Users
 - Minimum 48x48dp touch targets
 - Clear pressed states (ripple)
 - No small buttons in corners
 
-### For Keyboard Users
+#### For Keyboard Users
 - Visible focus indicators (4.5:1 contrast)
 - Logical tab order
 - Enter and Space both work
 
-### For Mouse Users
+#### For Mouse Users
 - Hover feedback
 - Pointer cursor changes
 - Click creates focus
 
-### For D-Pad Users
+#### For D-Pad Users
 - Extra large touch targets (64dp+)
 - High-contrast borders (3:1 minimum)
 - Pulsing animation for visibility
@@ -492,7 +495,7 @@ fontSize = 20.sp
 
 ---
 
-## Summary Table: When Focus Appears
+### Summary Table: When Focus Appears
 
 | Input Method | Focus Timing | Focus Duration | Visual Cues |
 |--------------|-------------|----------------|-------------|
