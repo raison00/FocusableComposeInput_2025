@@ -1,4 +1,4 @@
-# FocusableComposeInput_2025
+# Adaptive UI Focusable Button Input in Compose 2025
 Testing and documentation for Adaptive UI across devices and form factors
 
 # Input Types Comparison Guide
