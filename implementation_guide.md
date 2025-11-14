@@ -618,6 +618,7 @@ Before releasing:
 ## Resources
 
 - [Complete code in artifacts](#)
-- [WCAG Compliance Guide](WCAG_COMPLIANCE_GUIDE.md)
+- [WCAG Compliance Guide](https://github.com/raison00/FocusableComposeInput_2025/blob/main/implementation_guide.md)
+- 
 - [Compose Focus Documentation](https://developer.android.com/jetpack/compose/touch-input/focus)
 - [Material Design Accessibility](https://m3.material.io/foundations/accessible-design)
