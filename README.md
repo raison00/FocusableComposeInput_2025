@@ -9,8 +9,8 @@ Testing and documentation for Adaptive UI across devices and form factors
 - [TO DO: Complete code in artifacts](#)
 - [WCAG Compliance Guide](https://github.com/raison00/FocusableComposeInput_2025/blob/main/implementation_guide.md)
 - [Compose Focus Documentation](https://developer.android.com/jetpack/compose/touch-input/focus)
-- [Material Design Accessibility](https://m3.material.io/foundations/accessible-design)
-
+- [Material Design Accessibility](https://m3.material.io/foundations/overview/principles)
+  
 ## Input Types Comparison Guide
 
 ### Overview
