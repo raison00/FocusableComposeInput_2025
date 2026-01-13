@@ -134,7 +134,7 @@ val pulseAlpha by infiniteTransition.animateFloat(
 - [ ] Focus visible when using external keyboard
 
 ### Contrast Testing
-- [ ] Use Chrome DevTools contrast checker
+- [ ] Use Android Studio DevTools contrast checker
 - [ ] Test with different system themes
 - [ ] Verify in high contrast mode
 - [ ] Test with color blindness simulators
